@@ -28,6 +28,8 @@ val ColorMainBackground = Color(0xFFC0C0C0)
 val ColorCardBackground = Color(0xFFE0E5EA)
 val ColorTextDark = Color(0xFF000000)
 
+data class AcessoRapidoItem(val titulo: String, val onClick: () -> Unit)
+
 @Composable
 fun DashboardScreen(
     onAbrirConferencia: () -> Unit = {},
@@ -51,8 +53,39 @@ fun DashboardScreen(
             contentDescription = "Gráfico de Pizza"
         )
 
-        Button(onClick = onAbrirConferencia, modifier = Modifier.fillMaxWidth()) {
-            Text("Ir para Conferência")
+        AcessoRapidoSection(
+            itens = listOf(
+                AcessoRapidoItem("Conferência", onAbrirConferencia)
+            )
+        )
+    }
+}
+
+@Composable
+fun AcessoRapidoSection(itens: List<AcessoRapidoItem>, modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = ColorCardBackground)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text(
+                text = "Acesso rápido",
+                color = ColorTextDark,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium
+            )
+
+            itens.forEach { item ->
+                Button(onClick = item.onClick, modifier = Modifier.fillMaxWidth()) {
+                    Text(item.titulo)
+                }
+            }
         }
     }
 }
