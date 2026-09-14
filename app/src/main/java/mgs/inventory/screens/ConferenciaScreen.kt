@@ -99,7 +99,7 @@ fun ConferenciaScreen(modifier: Modifier = Modifier) {
                     )
                 }
                 Text(
-                    text = "empresa",
+                    text = "Empresa",
                     fontWeight = FontWeight.Bold,
                     color = Color.DarkGray
 
