@@ -102,16 +102,26 @@ fun MockupTopBar() {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 12.dp),
+                .padding(horizontal = 0.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(Color.White, shape = CircleShape),
-                contentAlignment = Alignment.Center
+            Card(
+                modifier = Modifier.size(96.dp),
+                shape = CircleShape,
+                colors = CardDefaults.cardColors(containerColor = Color.White)
             ) {
-                Text(text = "Logo", color = ColorTextDark, fontSize = 12.sp)
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.logo),
+                        contentDescription = "Logo da Empresa",
+                        modifier = Modifier
+                            .size(100.dp)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.width(16.dp))
