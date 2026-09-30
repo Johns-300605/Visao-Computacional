@@ -1,5 +1,6 @@
 package mgs.inventory.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -34,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import mgs.inventory.R
+import mgs.inventory.auth.AuthManager
 
 @Composable
 fun LoginScreen(
@@ -43,6 +46,8 @@ fun LoginScreen(
     var usuario by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
     var senhaVisivel by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -115,11 +120,40 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Button(
-                    onClick = { onLoginClick(usuario, senha) },
+                Button(onClick = {
+                    if (AuthManager.login(usuario, senha)){
+                        onLoginClick(usuario, senha)
+                    }else {
+                        Toast.makeText(
+                            context, "E-mail ou senha inválidos!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                },
                     modifier = Modifier.fillMaxWidth()
+
                 ) {
                     Text("Entrar")
+                }
+
+                TextButton(onClick = {
+                    val status = AuthManager.cadastrar(
+                        nome = "Usuário Legal de Teste",
+                        usuario = "teste",
+                        senha = "1234",
+                    )
+
+                    if (status) {
+                        Toast.makeText(
+                            context, "Usuário Legal de Teste Criado com Sucesso! ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+
+                }) {
+                    Text("Não tem uma conta? Cadastre-se")
+
                 }
             }
         }

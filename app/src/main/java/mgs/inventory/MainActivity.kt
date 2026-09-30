@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import mgs.inventory.auth.AuthManager
 import mgs.inventory.screens.ConferenciaScreen
 import mgs.inventory.screens.DashboardScreen
 import mgs.inventory.screens.LoginScreen
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MGSInventoryTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
@@ -54,6 +56,7 @@ class MainActivity : ComponentActivity() {
                         composable(Rotas.CONFERENCIA) {
                             ConferenciaScreen()
                         }
+
                     }
                 }
             }
